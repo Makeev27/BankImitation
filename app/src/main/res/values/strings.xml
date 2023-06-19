@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BankImitation</string>
+    <string name="name">%s</string>
+    <string name="enter_name_auth">Введите своё имя:</string>
+    <string name="enter_password_auth">Введите свой пароль:</string>
+    <string name="nextButton">Далее</string>
+</resources>
