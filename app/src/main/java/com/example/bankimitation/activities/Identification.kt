@@ -1,11 +1,12 @@
 package com.example.bankimitation.activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -30,18 +31,27 @@ class Identification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identification)
+        Handler(Looper.getMainLooper()).post {
+
+        }
         initView()
         userDatabase = UserDatabase.getInstance(application)
         nextButton.setOnClickListener {
             userName = enterNameAuth.text.toString()
             userPassword = enterPasswordAuth.text.toString()
-            if (userName.isEmpty() || userPassword.isEmpty()) {
+            if (userName.isEmpty() || userPassword.length != 4) {
                 Toast.makeText(applicationContext, "Введите свои данные", Toast.LENGTH_LONG).show()
             } else {
-                var user: User = User(0, userName, userPassword.toInt(), 0, "" )
-                userDatabase.userDao().add(user)
-                val intent: Intent = newIntent(this)
-                startActivity(intent)
+                Thread {
+                    val user: User = User(0, userName, userPassword.toInt(), 0, "")
+                    userDatabase.userDao().add(user)
+                    Handler(Looper.getMainLooper()).post {
+                        val intent = MainActivity.newIntent(applicationContext)
+                        startActivity(intent)
+                        finish()
+                    }
+                }.start()
+
             }
 
         }
@@ -54,11 +64,6 @@ class Identification : AppCompatActivity() {
         nextButton = findViewById(R.id.nextButton)
         greyColor = Color.parseColor("#808080")
         greenColor = Color.parseColor("#008000")
-    }
-
-
-    fun newIntent(context: Context): Intent {
-        return Intent(context, MainActivity::class.java)
     }
 
 

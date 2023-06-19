@@ -9,8 +9,14 @@ import com.example.bankimitation.classes.User
 @Dao
 public interface UserDao {
 
-    @Query ("SELECT * FROM users")
-    fun getAllNotes(): LiveData<List<User>>
+    @Query("SELECT * FROM users")
+    fun getAllUsers(): List<User>
+
+    @Query("SELECT name FROM users")
+    fun getName(): String
+
+    @Query("DELETE FROM users")
+    fun nukeTable()
 
     @Insert
     fun add(user: User)
