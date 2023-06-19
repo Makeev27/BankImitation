@@ -1,7 +1,6 @@
 package com.example.bankimitation.database
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -23,7 +22,7 @@ abstract class UserDatabase : RoomDatabase() {
                     application,
                     UserDatabase::class.java,
                     DB_NAME
-                ).build()
+                ).allowMainThreadQueries().build()
             }
             return instance!!
         }
