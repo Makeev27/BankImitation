@@ -1,7 +1,5 @@
 package com.example.bankimitation.activities
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,30 +29,34 @@ class Identification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identification)
-        Handler(Looper.getMainLooper()).post {
-
-        }
         initView()
         userDatabase = UserDatabase.getInstance(application)
-        nextButton.setOnClickListener {
-            userName = enterNameAuth.text.toString()
-            userPassword = enterPasswordAuth.text.toString()
-            if (userName.isEmpty() || userPassword.length != 4) {
-                Toast.makeText(applicationContext, "Введите свои данные", Toast.LENGTH_LONG).show()
-            } else {
-                Thread {
-                    val user: User = User(0, userName, userPassword.toInt(), 0, "")
-                    userDatabase.userDao().add(user)
-                    Handler(Looper.getMainLooper()).post {
-                        val intent = MainActivity.newIntent(applicationContext)
-                        startActivity(intent)
-                        finish()
-                    }
-                }.start()
+        if (userDatabase.userDao().getAllUsers().isNotEmpty()){ // Проверка на первый вход
+            val intent = MainActivity.newIntent(applicationContext)
+            startActivity(intent)
+            finish()
+        }else {
+            nextButton.setOnClickListener {
+                userName = enterNameAuth.text.toString().trim()
+                userPassword = enterPasswordAuth.text.toString()
+                if (userName.isEmpty() || userPassword.length != 4) {
+                    Toast.makeText(applicationContext, "Введите свои данные", Toast.LENGTH_LONG).show()
+                } else {
+                    Thread {
+                        val user: User = User(0, userName, userPassword.toInt(), 0, "")
+                        userDatabase.userDao().add(user)
+                        Handler(Looper.getMainLooper()).post {
+                            val intent = MainActivity.newIntent(applicationContext)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }.start()
+
+                }
 
             }
-
         }
+
 
     }
 

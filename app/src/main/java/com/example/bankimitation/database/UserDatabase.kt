@@ -22,7 +22,7 @@ abstract class UserDatabase : RoomDatabase() {
                     application,
                     UserDatabase::class.java,
                     DB_NAME
-                ).build()
+                ).allowMainThreadQueries().build()
             }
             return instance!!
         }

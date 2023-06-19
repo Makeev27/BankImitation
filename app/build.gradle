@@ -46,6 +46,7 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
 
 
     testImplementation 'junit:junit:4.13.2'

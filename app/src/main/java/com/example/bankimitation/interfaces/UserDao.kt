@@ -1,6 +1,5 @@
 package com.example.bankimitation.interfaces
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -14,6 +13,9 @@ public interface UserDao {
 
     @Query("SELECT name FROM users")
     fun getName(): String
+
+    @Query("SELECT password FROM USERS")
+    fun getPassword(): Int
 
     @Query("DELETE FROM users")
     fun nukeTable()
