@@ -2,18 +2,22 @@ package com.example.bankimitation.activities
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
+import android.widget.Toast
 import com.example.bankimitation.R
+import com.example.bankimitation.constants.Const
 import com.example.bankimitation.database.UserDatabase
 
 private lateinit var nameTextView: TextView
@@ -55,9 +59,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("checkStatus", userDatabase.userDao().getPassword().toString())
                 Thread {
                     if (userDatabase.userDao().getPassword().toString() == s.toString()) {
-
+                        Log.d("checkStatus", "Равны во время изменения")
                         Handler(Looper.getMainLooper()).post {
-                            var intent = Intent(applicationContext, BankActivitiy::class.java)
+                            var intent = Intent(applicationContext, BankActivity::class.java)
                             startActivity(intent)
                         }
                     }
@@ -68,19 +72,15 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 Thread {
                     if (userDatabase.userDao().getPassword().toString() == s.toString()) {
+                        Log.d("checkStatus", "Равны после изменения изменения")
                         Handler(mainLooper).post {
-                            var intent = Intent(application, BankActivitiy::class.java)
+                            var intent = Intent(application, BankActivity::class.java)
                             startActivity(intent)
                         }
                     }
                 }.start()
             }
         })
-        fingerPrintButton.setOnClickListener {
-            userDatabase.userDao().nukeTable()
-            var intent = Intent(this, Identification::class.java)
-            startActivity(intent)
-        }
     }
 
     companion object {
@@ -104,19 +104,6 @@ class MainActivity : AppCompatActivity() {
         nineButton = findViewById(R.id.nineButton)
         resetPassword = findViewById(R.id.resetPassword)
         fingerPrintButton = findViewById(R.id.fingerPrintButton)
-
-//        setAnimation(zeroButton)
-//        setAnimation(oneButton)
-//        setAnimation(twoButton)
-//        setAnimation(threeButton)
-//        setAnimation(fourButton)
-//        setAnimation(fiveButton)
-//        setAnimation(sixButton)
-//        setAnimation(sevenButton)
-//        setAnimation(eightButton)
-//        setAnimation(nineButton)
-//        setAnimation(resetPassword)
-
     }
 
     private fun showGreetings() {
@@ -139,6 +126,7 @@ class MainActivity : AppCompatActivity() {
             password += "1"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -147,6 +135,7 @@ class MainActivity : AppCompatActivity() {
             password += "2"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -155,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             password += "3"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -163,6 +153,7 @@ class MainActivity : AppCompatActivity() {
             password += "4"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -171,6 +162,7 @@ class MainActivity : AppCompatActivity() {
             password += "5"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -179,6 +171,7 @@ class MainActivity : AppCompatActivity() {
             password += "6"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -187,6 +180,7 @@ class MainActivity : AppCompatActivity() {
             password += "7"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -195,6 +189,7 @@ class MainActivity : AppCompatActivity() {
             password += "8"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -203,6 +198,7 @@ class MainActivity : AppCompatActivity() {
             password += "9"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
@@ -211,15 +207,32 @@ class MainActivity : AppCompatActivity() {
             password += "0"
             passwordTextView.setText(password)
             if (passwordTextView.text.toList().size == 4) {
+                vibratePhone()
                 password = ""
                 passwordTextView.text.clear()
             }
         }
         reset.setOnClickListener {
+            vibratePhone()
             password = ""
             passwordTextView.text.clear()
         }
+        fingerPrintButton.setOnClickListener {
+            userDatabase.userDao().nukeTable()
+            password = ""
+            passwordTextView.text.clear()
+            val intent = Intent(this, Identification::class.java)
+            startActivity(intent)
+        }
+    }
 
+    fun vibratePhone () {
+        val vibrator = application?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(200)
+        }
     }
 
 
