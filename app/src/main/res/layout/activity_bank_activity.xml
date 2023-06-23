@@ -57,6 +57,7 @@
         app:layout_constraintTop_toTopOf="@+id/userImage" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCards"
         tools:listitem="@layout/news_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImage"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         tools:itemCount="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
