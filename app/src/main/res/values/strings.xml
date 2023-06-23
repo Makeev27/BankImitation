@@ -4,4 +4,10 @@
     <string name="enter_name_auth">Введите своё имя:</string>
     <string name="enter_password_auth">Введите свой пароль:</string>
     <string name="nextButton">Далее</string>
+    <string name="main">main</string>
+    <string name="payments">payments</string>
+    <string name="more">more</string>
+    <string name="chat">chat</string>
+    <string name="map">map</string>
+    <string name="name">name</string>
 </resources>

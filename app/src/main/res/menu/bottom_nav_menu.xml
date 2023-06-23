@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ic_main_24"
+        android:title="@string/main" />
+    <item
+        android:id="@+id/payments"
+        android:icon="@drawable/baseline_payment_24"
+        android:title="@string/payments" />
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/baseline_map_24"
+        android:title="@string/map" />
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="@string/chat" />
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/baseline_more_horiz_24"
+        android:title="@string/more" />
+</menu>
